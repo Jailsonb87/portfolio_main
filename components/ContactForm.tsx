@@ -2,17 +2,29 @@
 import { useState } from "react";
 
 export function ContactForm() {
-  // estados para os inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    alert(`Obrigado pelo contato, ${name}! Em breve retorno no email: ${email}`);
-    setName("");
-    setEmail("");
-    setMessage("");
+    setStatus("Enviando...");
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, message }),
+    });
+
+    if (res.ok) {
+      setStatus("Mensagem enviada com sucesso! ✅");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } else {
+      setStatus("Erro ao enviar. Tente novamente ❌");
+    }
   }
 
   return (
@@ -47,6 +59,7 @@ export function ContactForm() {
       >
         Enviar
       </button>
+      {status && <p className="text-center mt-2">{status}</p>}
     </form>
   );
 }

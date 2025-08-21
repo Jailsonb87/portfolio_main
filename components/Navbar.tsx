@@ -12,9 +12,9 @@ export function Navbar() {
 
         {/* Links de navegação */}
         <div className="flex gap-6">
-          <Link href="/about" className="hover:text-blue-500">Sobre</Link>
-          <Link href="/projects" className="hover:text-blue-500">Projetos</Link>
-          <Link href="/contact" className="hover:text-blue-500">Contato</Link>
+          <Link href="/about" className="hover:text-blue-500">About</Link>
+          <Link href="/projects" className="hover:text-blue-500">Projects</Link>
+          <Link href="/contact" className="hover:text-blue-500">Contact</Link>
         </div>
       </nav>
     </header>

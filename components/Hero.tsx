@@ -11,7 +11,7 @@ export function Hero() {
         transition={{ duration: 0.6 }}
         className="text-5xl font-extrabold"
       >
-        Olá, sou <span className="text-blue-500">Jailson</span> 👋
+        Olá, sou <span className="text-blue-600">Jailson</span> 👋
       </motion.h1>
 
       <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
@@ -24,13 +24,13 @@ export function Hero() {
           href="/projects"
           className="px-6 py-3 rounded-xl bg-blue-600 text-white font-medium shadow hover:bg-blue-700 transition"
         >
-          Ver Projetos
+          See Projects
         </a>
         <a
           href="/contact"
           className="px-6 py-3 rounded-xl border border-gray-400 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
         >
-          Contato
+          Contact me
         </a>
       </div>
     </section>
