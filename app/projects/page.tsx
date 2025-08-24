@@ -1,14 +1,25 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+
+// Tipo para os repositórios do GitHub
+type Repo = {
+  id: number;
+  name: string;
+  html_url: string;
+  description: string | null;
+  homepage: string | null;
+};
 
 export default function Projects() {
-  const [repos, setRepos] = useState<any[]>([]);
+  const [repos, setRepos] = useState<Repo[]>([]);
   const [erroImgs, setErroImgs] = useState<{ [key: number]: boolean }>({}); // controla erro das imagens
 
   useEffect(() => {
     fetch("https://api.github.com/users/Jailsonb87/repos")
       .then((res) => res.json())
-      .then((data) => setRepos(data));
+      .then((data: Repo[]) => setRepos(data))
+      .catch((err) => console.error("Erro ao buscar repositórios:", err));
   }, []);
 
   return (
@@ -35,10 +46,11 @@ export default function Projects() {
             >
               <div className="relative h-48 w-full flex items-center justify-center">
                 {!hasError ? (
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={repo.name}
-                    className="h-full w-full object-cover"
+                    fill
+                    className="object-cover"
                     onError={() =>
                       setErroImgs((prev) => ({ ...prev, [repo.id]: true }))
                     }
@@ -61,6 +73,7 @@ export default function Projects() {
                   <a
                     href={repo.html_url}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
                   >
                     GitHub
@@ -69,6 +82,7 @@ export default function Projects() {
                     <a
                       href={repo.homepage}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
                     >
                       Demo
