@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Variants } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import Image from "next/image"
@@ -15,18 +15,18 @@ export default function Hero() {
   }, []);
 
   // Variantes de animação para elementos
-  const fadeIn = {
-    hidden: { opacity: 0, y: -20 },
-    visible: (i = 0) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 0.1 * i,
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    })
-  };
+  const fadeIn: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
 
   if (!mounted) return null;
 
