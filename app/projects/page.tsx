@@ -1,5 +1,3 @@
-"use client";
-import { useEffect, useState } from "react";
 import ProjectCard from "../components/ProjectCard";
 
 type Repo = {
@@ -10,16 +8,11 @@ type Repo = {
   homepage: string | null;
 };
 
-export default function Projects() {
-  const [repos, setRepos] = useState<Repo[]>([]);
+type ProjectsProps = {
+  repos: Repo[];
+};
 
-  useEffect(() => {
-    fetch("https://api.github.com/users/Jailsonb87/repos")
-      .then((res) => res.json())
-      .then((data: Repo[]) => setRepos(data))
-      .catch((err) => console.error("Erro ao buscar repositórios:", err));
-  }, []);
-
+export default function Projects({ repos }: ProjectsProps) {
   return (
     <section id="projects" className="py-20">
       <h2 className="text-3xl font-bold mb-10 text-center">Projetos</h2>
@@ -30,4 +23,21 @@ export default function Projects() {
       </div>
     </section>
   );
+}
+
+// ✅ Busca os repositórios com token no servidor (seguro)
+export async function getServerSideProps() {
+  const res = await fetch("https://api.github.com/user/repos", {
+    headers: {
+      Authorization: `token ${process.env.GITHUB_TOKEN}`,
+    },
+  });
+
+  const repos: Repo[] = await res.json();
+
+  return {
+    props: {
+      repos,
+    },
+  };
 }
