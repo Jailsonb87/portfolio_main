@@ -11,6 +11,10 @@ type Repo = {
   homepage: string | null;
 };
 
+// Blur genérico em base64 (pequeno quadrado cinza)
+const BLUR_PLACEHOLDER =
+  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlMGUwZTAiIC8+PC9zdmc+";
+
 export default function Projects() {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [erroImgs, setErroImgs] = useState<{ [key: number]: boolean }>({}); // controla erro das imagens
@@ -51,6 +55,8 @@ export default function Projects() {
                     alt={repo.name}
                     fill
                     className="object-cover"
+                    placeholder="blur"
+                    blurDataURL={BLUR_PLACEHOLDER}
                     onError={() =>
                       setErroImgs((prev) => ({ ...prev, [repo.id]: true }))
                     }
