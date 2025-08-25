@@ -18,6 +18,11 @@
     --foreground: #ededed;
   }
 }
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
 
 body {
   background: var(--background);

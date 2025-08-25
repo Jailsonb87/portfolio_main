@@ -14,8 +14,9 @@ type Repo = {
 
 type ProjectCardProps = {
   repo: Repo;
-  index: number;
+  index?: number;
 };
+
 
 const BLUR_PLACEHOLDER = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlMGUwZTAiIC8+PC9zdmc+";
 

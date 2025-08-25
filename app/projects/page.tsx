@@ -8,36 +8,32 @@ type Repo = {
   homepage: string | null;
 };
 
-type ProjectsProps = {
-  repos: Repo[];
-};
-
-export default function Projects({ repos }: ProjectsProps) {
-  return (
-    <section id="projects" className="py-20">
-      <h2 className="text-3xl font-bold mb-10 text-center">Projetos</h2>
-      <div className="grid md:grid-cols-3 gap-6">
-        {repos.map((repo, index) => (
-          <ProjectCard key={repo.id} repo={repo} index={index} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ✅ Busca os repositórios com token no servidor (seguro)
-export async function getServerSideProps() {
+async function getRepos(): Promise<Repo[]> {
   const res = await fetch("https://api.github.com/user/repos", {
     headers: {
       Authorization: `token ${process.env.GITHUB_TOKEN}`,
     },
+    cache: "no-store", // 🚀 sempre pega dados atuais
   });
 
-  const repos: Repo[] = await res.json();
+  if (!res.ok) {
+    throw new Error("Erro ao buscar repositórios do GitHub");
+  }
 
-  return {
-    props: {
-      repos,
-    },
-  };
+  return res.json();
+}
+
+export default async function ProjectsPage() {
+  const repos = await getRepos();
+
+  return (
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 p-4">
+      {repos.length === 0 && (
+        <p className="text-gray-500">Nenhum repositório encontrado.</p>
+      )}
+      {repos.map((repo) => (
+        <ProjectCard key={repo.id} repo={repo} />
+      ))}
+    </div>
+  );
 }
