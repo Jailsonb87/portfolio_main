@@ -40,39 +40,60 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Dropdown Mobile com animação */}
+      {/* Drawer Menu Mobile */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            key="dropdown"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden flex flex-col gap-4 mt-4 bg-gray-800 rounded-xl p-4 shadow-lg"
-          >
-            <Link
-              href="/projects"
+          <>
+            {/* Fundo escuro por trás */}
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black z-40"
               onClick={() => setIsOpen(false)}
-              className="hover:text-blue-400 transition"
+            />
+
+            {/* Drawer lateral */}
+            <motion.div
+              key="drawer"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed top-0 left-0 h-full w-3/4 bg-gray-900 text-white flex flex-col gap-6 p-6 z-50 shadow-2xl"
             >
-              Projects
-            </Link>
-            <Link
-              href="/contact"
-              onClick={() => setIsOpen(false)}
-              className="hover:text-blue-400 transition"
-            >
-              Contact
-            </Link>
-            <Link
-              href="/about"
-              onClick={() => setIsOpen(false)}
-              className="hover:text-blue-400 transition"
-            >
-              About
-            </Link>
-          </motion.div>
+              <div className="flex justify-between items-center mb-6">
+                <span className="text-xl font-bold">Menu</span>
+                <button onClick={() => setIsOpen(false)}>
+                  <X size={28} />
+                </button>
+              </div>
+
+              <Link
+                href="/projects"
+                onClick={() => setIsOpen(false)}
+                className="text-lg font-medium hover:text-blue-400 transition"
+              >
+                Projects
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setIsOpen(false)}
+                className="text-lg font-medium hover:text-blue-400 transition"
+              >
+                Contact
+              </Link>
+              <Link
+                href="/about"
+                onClick={() => setIsOpen(false)}
+                className="text-lg font-medium hover:text-blue-400 transition"
+              >
+                About
+              </Link>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
