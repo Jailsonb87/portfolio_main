@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import fadeIn from "../animations/animations";
+import fadeIn from "@/animations/animations";
 import React from "react";
 
 type Repo = {
